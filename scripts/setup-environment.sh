@@ -81,6 +81,14 @@ case "$DEVICE_IMPORT" in
         export DEVICE_DEFCONFIG=""
         export KERNEL_NAME="-VantomKernel-neon"
         ;;
+    # MIUI
+    sweet-miui)
+        export MAIN_DEFCONFIG="arch/arm64/configs/vendor/sweet_defconfig"
+        export ACTUAL_MAIN_DEFCONFIG="vendor/sweet_defconfig"
+        export COMMON_DEFCONFIG="vendor/debugfs.config"
+        export DEVICE_DEFCONFIG=""
+        export KERNEL_NAME="-strix-neon"
+        ;;
     # OneUI
     a9y18qlte)
         export MAIN_DEFCONFIG="arch/arm64/configs/a9y18qlte_eur_open_defconfig"
