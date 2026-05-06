@@ -114,7 +114,7 @@ if [ "$DEVICE_IMPORT" == "sweet-miui" ]; then
         "gcc32|https://github.com/arter97/arm32-gcc.git"
     )
     export MAKE_ARGS=(
-        CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi-
+        CROSS_COMPILE=aarch64-none-elf- CROSS_COMPILE_COMPAT=arm-none-eabi-
     )
     export PATH="$GCC64_ROOT/bin:$GCC32_ROOT/bin:/usr/bin:$PATH"
 fi
