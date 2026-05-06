@@ -86,6 +86,13 @@ case "$DEVICE_IMPORT" in
                 "https://github.com/xiaomi-sm6150/android_kernel_xiaomi_sm6150/commit/2628183db0d96be8dae38a21f2b09cb10978f423.patch"
             )
             apply_patches "${DTBO_PATCHES[@]}"
+            echo "-- Disabling LTO..."
+            sed -i 's/^CONFIG_LTO=y/# CONFIG_LTO is not set/' $MAIN_DEFCONFIG
+            sed -i 's/^CONFIG_LTO_GCC=y/# CONFIG_LTO_GCC is not set/' $MAIN_DEFCONFIG
+            sed -i 's/^CONFIG_LTO_CLANG=y/# CONFIG_LTO_CLANG is not set/' $MAIN_DEFCONFIG
+            sed -i 's/^CONFIG_GCC_GRAPHITE=y/# CONFIG_GCC_GRAPHITE is not set/' $MAIN_DEFCONFIG
+            sed -i 's/^CONFIG_THINLTO=y/# CONFIG_THINLTO is not set/' $MAIN_DEFCONFIG
+            sed -i 's/^# CONFIG_LTO_NONE is not set/CONFIG_LTO_NONE=y/' $MAIN_DEFCONFIG
         fi
         # Shared patches for 4.14
         echo "-- Applying shared patches (KPATCH)..."
