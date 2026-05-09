@@ -77,7 +77,7 @@ jobs:
             cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/Image.gz AnyKernel3/
             cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/dtb.img AnyKernel3/
             cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/dtbo.img AnyKernel3/
-            sed -i 's/supported.versions=11-16/supported.versions=11-16/' AnyKernel3/anykernel.sh
+            sed -i 's/supported.versions=11-16/supported.versions=12-16/' AnyKernel3/anykernel.sh
             if [[ "${{ matrix.build-type }}" == "sweet-pixelos" ]]; then
               sed -i 's/device.name1=sweet/device.name1=sweet/' AnyKernel3/anykernel.sh
               sed -i 's/device.name2=sweetin/device.name2=sweetin/' AnyKernel3/anykernel.sh
