@@ -72,7 +72,7 @@ case "$DEVICE_IMPORT" in
                 "https://github.com/LineageOS/android_kernel_xiaomi_sm6150/commit/ae58bbd8f7af4c3c290e63ddcd4112559c5fc240.patch"
         fi
         # DTBO patches for 4.14
-        if [[ "$DEVICE_IMPORT" != "sweet-pixelos" ]]; then
+        if [[ "$DEVICE_IMPORT" != "sweet-pixelos" ]]  && [[ "$DEVICE_IMPORT" != "sweet-miui" ]]; then
             echo "-- Applying DTBO & LTO patches..."
             apply_patches "${DTBO_PATCHES[@]}" "$LTO_PATCH"
             echo "CONFIG_LTO_CLANG=y" >> $MAIN_DEFCONFIG
@@ -92,6 +92,10 @@ case "$DEVICE_IMPORT" in
             revert_commit "https://github.com/tbyool/android_kernel_xiaomi_sm6150/commit/e2b3c607add77513068e3d917efb7f4786004a61.patch"
             revert_commit "https://github.com/tbyool/android_kernel_xiaomi_sm6150/commit/f9d16e866c476d902120531bb9c710eb9e7d4e6c.patch"
             revert_commit "https://github.com/tbyool/android_kernel_xiaomi_sm6150/commit/3b5ce8d2647ca26976f878220ea33f9d78f8c109.patch"
+            echo "-- Applying LTO patches..."
+            apply_patches "$LTO_PATCH"
+            echo "CONFIG_LTO_CLANG=y" >> $MAIN_DEFCONFIG
+            echo "CONFIG_THINLTO=y" >> $MAIN_DEFCONFIG
         fi
         # Shared patches for 4.14
         echo "-- Applying shared patches (KPATCH)..."
