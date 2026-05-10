@@ -69,22 +69,18 @@ case "$DEVICE_IMPORT" in
         export FEATURE_DEFCONFIG=""
         export KERNEL_VERSION="5.4"
         ;;
-    # PixelOS
-    sweet-pixelos)
+    # PixelOS or MIUI
+    sweet-pixelos|sweet-miui)
         export MAIN_DEFCONFIG="arch/arm64/configs/sweet_defconfig"
         export ACTUAL_MAIN_DEFCONFIG="sweet_defconfig"
         export COMMON_DEFCONFIG="vendor/debugfs.config"
         export DEVICE_DEFCONFIG=""
-        export KERNEL_NAME="-VantomKernel-neon"
-        ;;
-    # MIUI
-    sweet-miui)
-        export MAIN_DEFCONFIG="arch/arm64/configs/sweet_defconfig"
-        export ACTUAL_MAIN_DEFCONFIG="sweet_defconfig"
-        export COMMON_DEFCONFIG="vendor/debugfs.config"
-        export DEVICE_DEFCONFIG=""
-        export KERNEL_NAME="-old-spiteful-neon"
-        export TC_ALT_MODE=true
+        if [ "$DEVICE_IMPORT" = "sweet-pixelos" ]; then
+            export KERNEL_NAME="-VantomKernel-neon"
+        elif [ "$DEVICE_IMPORT" = "sweet-miui" ]; then
+            export KERNEL_NAME="-Spiteful-old-neon"
+            export TC_ALT_MODE=true
+        fi
         ;;
     # OneUI
     a9y18qlte)
