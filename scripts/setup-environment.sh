@@ -6,10 +6,15 @@ export CLANG_ROOT="$PWD/clang"
 export GCC64_ROOT="$PWD/gcc64"
 export GCC32_ROOT="$PWD/gcc32"
 export PATH="$CLANG_ROOT/bin:$GCC64_ROOT/bin:$GCC32_ROOT/bin:/usr/bin:$PATH"
-TC_URLS=(
+TC_URLS_MAIN=(
     "clang|https://github.com/LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b.git"
     "gcc64|https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9.git"
     "gcc32|https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9.git"
+)
+TC_URLS_ALT=(
+    "clang|https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r547379.git"
+    "gcc64|https://api.github.com/repos/mvaisakh/gcc-build/releases/latest"
+    "gcc32|https://api.github.com/repos/mvaisakh/gcc-build/releases/latest"
 )
 
 # Device Default Exports
@@ -21,6 +26,7 @@ export MAIN_DEFCONFIG="arch/arm64/configs/vendor/sdmsteppe-perf_defconfig"
 export ACTUAL_MAIN_DEFCONFIG="vendor/sdmsteppe-perf_defconfig"
 export COMMON_DEFCONFIG="vendor/debugfs.config"
 export FEATURE_DEFCONFIG=""
+export TC_ALT_MODE=false
 
 # Device Settings - v3.5
 case "$DEVICE_IMPORT" in
@@ -78,7 +84,7 @@ case "$DEVICE_IMPORT" in
         export COMMON_DEFCONFIG="vendor/debugfs.config"
         export DEVICE_DEFCONFIG=""
         export KERNEL_NAME="-old-spiteful-neon"
-        export CLANG_GCC_FALLBACK_DOWNLOADER=true
+        export TC_ALT_MODE=true
         ;;
     # OneUI
     a9y18qlte)
@@ -137,46 +143,40 @@ if [ "$DEVICE_IMPORT" == "a9y18qlte" ]; then
     )
 fi
 
-# Clang and GCC cloning
-if [[ "$CLANG_GCC_FALLBACK_DOWNLOADER" == "true" ]]; then
-    echo "-- Setting up toolchains..."
-    # Setup Clang
-    if [ ! -d "$PWD/clang" ]; then
-        echo "-- Cloning Clang..."
-        git clone https://gitlab.com/crdroidandroid/android_prebuilts_clang_host_linux-x86_clang-r547379.git --depth=1 -b 15.0 clang
-    else
-        echo "-- Using local clang"
-    fi
+# Clang and GCC late Settings
+if [[ "$TC_ALT_MODE" == "false" ]]; then
+    export TC_URLS_REAL=("${TC_URLS_MAIN[@]}")
+elif [[ "$TC_ALT_MODE" == "true" ]]; then
+    export TC_URLS_REAL=("${TC_URLS_ALT[@]}")
+fi
 
-    # Setup GCC
-    if [ ! -d "$PWD/gcc32" ] && [ ! -d "$PWD/gcc64" ]; then
-        echo "-- Downloading GCC..."
-        ASSET_URLS=$(curl -s "https://api.github.com/repos/mvaisakh/gcc-build/releases/latest" | grep "browser_download_url" | cut -d '"' -f 4 | grep -E "eva-gcc-arm.*\.xz")
-        for url in $ASSET_URLS; do
-            wget --content-disposition -L "$url"
-        done
-
-        for file in eva-gcc-arm*.xz; do
-        # The files are actually just plain tarballs named as .xz
-        if [[ "$file" == *arm64* ]]; then
-            tar -xf "$file" && mv gcc-arm64 gcc64
-        else
-            tar -xf "$file" && mv gcc-arm gcc32
-        fi
-        rm -rf "$file"
-        done
-    else
-        echo "-- Using local gcc"
-    fi
-else
-    for tc in "${TC_URLS[@]}"; do
-        dir="${tc%%|*}"; url="${tc##*|}"
+# Clang and GCC Setup
+for tc in "${TC_URLS_REAL[@]}"; do
+    dir="${tc%%|*}"; url="${tc##*|}"
+    if [[ "$url" == *.git ]]; then
         if [ ! -d "$dir/.git" ]; then
             echo "-- Cloning $dir..."
-            rm -rf "$dir" 
-            git clone "$url" --depth=1 "$dir" &> /dev/null || { echo "Fatal: Failed to clone $dir!"; exit 1; }
+            rm -rf "$dir"
+            git clone "$url" --depth=1 "$dir" &> /dev/null || { echo "-- Fatal: Failed to clone $dir!"; exit 1; }
         else
             echo "-- Using local $dir"
         fi
-    done
-fi
+    else
+        if [ ! -d "$dir" ]; then
+            if [[ "$dir" == "gcc64" ]]; then
+                search="arm64"
+            else
+                search="arm-"
+            fi
+            asset_url=$(curl -s "$url" | grep -oP "https://github.com/[^\"]+$search[^\"]+\.xz" | head -n 1)
+            if [ -n "$asset_url" ]; then
+                mkdir -p "$dir"
+                wget -qO- "$asset_url" | tar -xJ -C "$dir" &> /dev/null || { echo "-- Fatal: Failed to download and extract $dir!"; exit 1; }
+            else
+                echo "-- Error: Could not find matching asset for $dir at $url"
+            fi
+        else
+            echo "-- Using local $dir"
+        fi
+    fi
+done
