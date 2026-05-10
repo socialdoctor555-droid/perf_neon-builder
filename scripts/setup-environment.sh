@@ -169,11 +169,14 @@ for tc in "${TC_URLS_REAL[@]}"; do
             else
                 search="arm-"
             fi
-            asset_url=$(curl -s "$url" | grep -oP "https://github.com/[^\"]+$search[^\"]+\.xz" | head -n 1)
-            if [ -n "$asset_url" ]; then
+            asset_url=$(curl -sL -H "User-Agent: bash-script" "$url" | grep -oP "https://github.com/[^\"]+$search[^\"]+\.xz" | head -n 1)
+            if [ -z "$asset_url" ]; then
+                echo "-- Fatal: Could not find a valid download link for $dir!"
+                exit 1
+            fi
+            if wget -q --spider "$asset_url"; then
                 mkdir -p "$dir"
-                wget -qO- "$asset_url" | tar -xJ -C "$dir" || { echo "-- Fatal: Failed to download and extract $dir!"; exit 1; }
-            else
+                wget -qO- "$asset_url" | tar -x -C "$dir"
                 echo "-- Error: Could not find matching asset for $dir at $url"
             fi
         else
