@@ -9,7 +9,7 @@ echo " | |_) / _ \ '__| |_  |  \| |/ _ \/ _ \| '_ \  "
 echo " |  __/  __/ |  |  _| | |\  |  __/ (_) | | | | "
 echo " |_|   \___|_|  |_|   |_| \_|\___|\___/|_| |_| "
 echo "==============================================="
-echo " Build Script 1.2 - by Riaru Moda"
+echo " Build Script 1.3 - by Riaru Moda"
 echo " https://t.me/trrflex"
 echo " "
 
