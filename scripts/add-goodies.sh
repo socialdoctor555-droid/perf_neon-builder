@@ -57,7 +57,7 @@ case "$KERNELSU_SELECTOR" in
         export KSU_SETUP_BRANCH="legacy"
         # SUSFS Settings
         if [[ "$KERNELSU_SELECTOR" == "ksunext-susfs" ]]; then
-            export KSU_SETUP_BRANCH="legacy_susfs"
+            export KSU_SETUP_BRANCH="legacy-susfs"
             KSU_HOOK="https://github.com/JackA1ltman/NonGKI_Kernel_Build_2nd/raw/refs/heads/mainline/Patches/susfs_inline_hook_patches.sh"
         else
             KSU_HOOK="https://github.com/JackA1ltman/NonGKI_Kernel_Build_2nd/raw/refs/heads/mainline/Patches/syscall_hook_patches.sh"
