@@ -204,7 +204,7 @@ jobs:
           body: |
             > [!IMPORTANT]   
             > - This kernel only be used for playtesting purposes. Do NOT report bugs to the original author.   
-            > - This kernel already includes ReSukiSU, SUSFS, and Baseband Guard.    
+            > - This kernel already includes ReSukiSU. Also SUSFS and Baseband Guard too, in exception of a9y18qlte.    
 
             > [!CAUTION]   
             > - Always backup your boot & dtbo image first before proceeding!   
