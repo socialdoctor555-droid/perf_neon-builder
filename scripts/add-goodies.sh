@@ -47,12 +47,6 @@ case "$KERNELSU_SELECTOR" in
             echo "CONFIG_KSU_SUSFS_SUS_MAP=y" >> $MAIN_DEFCONFIG
             echo "CONFIG_KSU_SUSFS_TRY_UMOUNT=y" >> $MAIN_DEFCONFIG
         fi
-        # Export policy_rwlock if exist
-        POLICY_RWLOCK_CHECK=$(grep -q "static DEFINE_RWLOCK(policy_rwlock);" "${PWD}/security/selinux/ss/services.c" && echo "true")
-        if [[ "$POLICY_RWLOCK_CHECK" == "true" ]]; then
-            echo "-- Exporting policy_rwlock..."
-            sed -i 's/^static \(DEFINE_RWLOCK(policy_rwlock);\)/\1/' security/selinux/ss/services.c
-        fi
         # Kernel 4.4 specific patches
         if [[ "$KERNEL_VERSION" == "4.4" ]]; then
             echo "-- Re-tuning ksu_handle_devpts under 4.4..."
@@ -94,12 +88,6 @@ case "$KERNELSU_SELECTOR" in
             echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> $MAIN_DEFCONFIG
             echo "CONFIG_KSU_SUSFS_SUS_MAP=y" >> $MAIN_DEFCONFIG
             echo "CONFIG_KSU_SUSFS_TRY_UMOUNT=y" >> $MAIN_DEFCONFIG
-        fi
-        # Export policy_rwlock if exist
-        POLICY_RWLOCK_CHECK=$(grep -q "static DEFINE_RWLOCK(policy_rwlock);" "${PWD}/security/selinux/ss/services.c" && echo "true")
-        if [[ "$POLICY_RWLOCK_CHECK" == "true" ]]; then
-            echo "-- Exporting policy_rwlock..."
-            sed -i 's/^static \(DEFINE_RWLOCK(policy_rwlock);\)/\1/' security/selinux/ss/services.c
         fi
         # Kernel 4.4 specific patches
         if [[ "$KERNEL_VERSION" == "4.4" ]]; then
