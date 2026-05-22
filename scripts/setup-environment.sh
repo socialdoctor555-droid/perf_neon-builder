@@ -29,7 +29,7 @@ export MAIN_DEFCONFIG="arch/arm64/configs/vendor/sdmsteppe-perf_defconfig"
 export ACTUAL_MAIN_DEFCONFIG="vendor/sdmsteppe-perf_defconfig"
 export COMMON_DEFCONFIG="vendor/debugfs.config"
 export FEATURE_DEFCONFIG=""
-export TC_ALT_MODE=0
+export TC_ALT_MODE=1
 
 # Device Settings - v3.5
 case "$DEVICE_IMPORT" in
@@ -93,7 +93,6 @@ case "$DEVICE_IMPORT" in
         export DEVICE_DEFCONFIG=""
         export FEATURE_DEFCONFIG=""
         export KERNEL_VERSION="4.4"
-        export TC_ALT_MODE=1
         ;;
     *)
         echo "- Invalid DEVICE_IMPORT. Valid options: sweet, davinci, ginkgo, laurel_sprout, mi89x7, mi89x7-community, a52s, sweet-pixelos, sweet-miui, a9y18qlte. Yours: $DEVICE_IMPORT."
@@ -113,7 +112,7 @@ if [[ "$TC_ALT_MODE" == "0" ]]; then
         ARCH=arm64 LLVM=1 LLVM_IAS=1 CC=clang LD=ld.lld AR=llvm-ar AS=llvm-as
         NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip
         CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_COMPAT=arm-linux-gnueabi-
-        KCFLAGS="-Wno-implicit-enum-enum-cast"
+        KCFLAGS="-Wno-implicit-enum-enum-cast -Wno-default-const-init-var-unsafe -Wno-error"
     )
 elif [[ "$TC_ALT_MODE" == "1" ]]; then
     export TC_URLS_REAL=("${TC_URLS_LEGACY[@]}")
