@@ -171,7 +171,7 @@ jobs:
             echo "Invalid build type: ${{ matrix.build-type }}"
             exit 1
           fi
-          export ZIPNAME="$KERNELNAME-playground-$KSUTYPE-${{ steps.ts.outputs.DATE }}.zip"
+          export ZIPNAME="$KERNELNAME-${{ matrix.build-type }}-playground-$KSUTYPE-${{ steps.ts.outputs.DATE }}.zip"
           cd AnyKernel3
           zip -rq9 "../$ZIPNAME" ./*
           cd ..
