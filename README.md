@@ -41,4 +41,7 @@ Patches & buildscript
 Projects   
 - [ReSukiSU](https://github.com/ReSukiSU) for ReSukiSU.
 - [vc-teahouse](https://github.com/vc-teahouse) for Baseband Guard.   
-- [LineageOS](https://github.com/LineageOS) for kernel sources.
+- [maxsteeel](https://github.com/maxsteeel) for NoMount.   
+- [LineageOS](https://github.com/LineageOS) for kernel sources.   
+- [PixelOS-Devices](https://github.com/PixelOS-Devices) for kernel sources.   
+- [Mi-Thorium](https://github.com/Mi-Thorium) for kernel sources.   
