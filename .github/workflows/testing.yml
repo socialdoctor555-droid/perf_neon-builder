@@ -14,74 +14,10 @@ jobs:
       date: ${{ steps.ts.outputs.DATE }}
     strategy:
       matrix:
-        build-type: [sweet, ginkgo, munch, mi89x7, sweet-pixelos, sweet-miui, a9y18qlte, mi89x7-community]
-        ksu-type: [zako, zako-susfs]
-        bbg-type: [bbg, none]
-        nomount-type: [nomount, none]
-        exclude:
-          - build-type: a9y18qlte
-            ksu-type: zako-susfs
-            bbg-type: bbg
-            nomount-type: nomount
-          - build-type: a9y18qlte
-            ksu-type: zako-susfs
-            bbg-type: none
-            nomount-type: nomount
-          - build-type: a9y18qlte
-            ksu-type: zako
-            bbg-type: bbg
-            nomount-type: nomount
-          - build-type: a9y18qlte
-            ksu-type: zako
-            bbg-type: bbg
-            nomount-type: none
-          - build-type: a9y18qlte
-            ksu-type: zako
-            bbg-type: none
-            nomount-type: nomount
-          - build-type: a9y18qlte
-            ksu-type: zako-susfs
-            bbg-type: none
-            nomount-type: nomount
-          - build-type: a9y18qlte
-            ksu-type: zako-susfs
-            bbg-type: bbg
-            nomount-type: nomount
-          - build-type: a9y18qlte
-            ksu-type: zako-susfs
-            bbg-type: bbg
-            nomount-type: none
-          - build-type: a9y18qlte
-            ksu-type: zako-susfs
-            bbg-type: none
-            nomount-type: none
-          - build-type: sweet-pixelos
-            ksu-type: zako
-            bbg-type: none
-          - build-type: sweet-pixelos
-            ksu-type: zako
-            bbg-type: bbg
-          - build-type: sweet-pixelos
-            ksu-type: zako-susfs
-            bbg-type: none
-          - build-type: sweet-miui
-            ksu-type: zako
-            bbg-type: none
-          - build-type: sweet-miui
-            ksu-type: zako
-            bbg-type: bbg
-          - build-type: sweet-miui
-            ksu-type: zako-susfs
-            bbg-type: none
-          - build-type: mi89x7-community
-            ksu-type: zako
-            bbg-type: none
-          - build-type: mi89x7-community
-            ksu-type: zako
-            bbg-type: bbg
-          - build-type: mi89x7-community
-            ksu-type: zako-susfs
-            bbg-type: none
+        build-type: [sweet, mi89x7-community]
+        ksu-type: [zako-susfs]
+        bbg-type: [bbg]
+        nomount-type: [nomount]
 
     steps:
       - uses: actions/checkout@v6
