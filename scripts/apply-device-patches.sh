@@ -77,6 +77,10 @@ case "$DEVICE_IMPORT" in
             apply_patches "${DTBO_PATCHES[@]}" "$LTO_PATCH"
             echo "CONFIG_LTO_CLANG=y" >> $MAIN_DEFCONFIG
             echo "CONFIG_THINLTO=y" >> $MAIN_DEFCONFIG
+        else
+            echo "-- Enabling kallsyms..."
+            echo "CONFIG_KALLSYMS=y" >> $MAIN_DEFCONFIG
+            echo "CONFIG_KALLSYMS_ALL=y" >> $MAIN_DEFCONFIG
         fi
         # Shared patches for 4.14
         echo "-- Applying shared patches (KPATCH)..."
