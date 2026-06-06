@@ -1,6 +1,19 @@
 ![banner](.github/assets/banner.png)
-<p align="center" style="font-size: 1.25rem;"><strong><em>This project is not affiliated with LineageOS.</em></strong></p>
-   
+<div align="center" style="font-size: 1.25rem;">
+    <strong>
+        <em>
+        This project is not affiliated with LineageOS.
+        </em>
+    </strong>
+
+<br>
+
+[![Release](https://img.shields.io/github/v/release/riarumoda/perf_neon-builder?label=Release&logo=github)](https://github.com/riarumoda/perf_neon-builder/releases)
+[![Downloads](https://img.shields.io/github/downloads/riarumoda/perf_neon-builder/total?label=Downloads&logo=icloud&logoColor=white)](https://github.com/riarumoda/perf_neon-builder/releases)
+[![Telegram](https://img.shields.io/badge/Follow-Telegram-blue?logo=telegram)](https://t.me/trrflexgroup)
+
+</div>
+
 # Background
 The naming, Perf Neon, is inspired by a Linux Distribution called KDE Neon, where KDE take latest Ubuntu LTS as a base system and then put Latest KDE on top of it. Same thing as Perf Neon, where i take whatever the world the LineageOS team put under their kernel source and then put minimal patches on top of it.
 
@@ -15,6 +28,7 @@ Currently added features:
 - KernelSU support (ReSukiSU) & SUSFS support (separate build)
 - Baseband Guard support
 - NoMount Meta Module support
+- Droidspaces container support
 - Compiled with -O3, LTO, LLVM=1
 
 # Compatibility
@@ -43,6 +57,7 @@ Projects
 - [ReSukiSU](https://github.com/ReSukiSU) for ReSukiSU.
 - [vc-teahouse](https://github.com/vc-teahouse) for Baseband Guard.   
 - [maxsteeel](https://github.com/maxsteeel) for NoMount.   
+- [ravindu644](https://github.com/ravindu644) for Droidspaces.
 - [LineageOS](https://github.com/LineageOS) for kernel sources.   
 - [PixelOS-Devices](https://github.com/PixelOS-Devices) for kernel sources.   
 - [Mi-Thorium](https://github.com/Mi-Thorium) for kernel sources.   
