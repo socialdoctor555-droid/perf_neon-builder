@@ -242,9 +242,9 @@ jobs:
             > - ReSukiSU latest manager can be found in [here](https://resukisu.github.io/guide/install.html#Get-manager).    
                
             > [!IMPORTANT]
-            > - Normal build contains ReSukiSU + Baseband Guard + NoMount + Droidspaces (Recommended).   
-            > - SUSFS build contains ReSukiSU + SUSFS + Baseband Guard + NoMount + Droidspaces.   
-            > - No-KSU build does not contain ReSukiSU. But it does contain Baseband Guard, NoMount and Droidspaces.   
+            > - Normal build contains ReSukiSU + Baseband Guard + NoMount (Recommended).   
+            > - SUSFS build contains ReSukiSU + SUSFS + Baseband Guard + NoMount.   
+            > - No-KSU build does not contain ReSukiSU. But it does contain Baseband Guard and NoMount.   
 
             > [!CAUTION]   
             > - Always backup your boot & dtbo image first before proceeding!   
