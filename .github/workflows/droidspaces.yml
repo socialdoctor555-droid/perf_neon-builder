@@ -16,7 +16,7 @@ jobs:
       date: ${{ steps.ts.outputs.DATE }}
     strategy:
       matrix:
-        build-type: [sweet-droidspaces, ginkgo-droidspaces, alioth-droidspaces, mi89x7-droidspaces]
+        build-type: [sweet-droidspaces, ginkgo-droidspaces, umi-droidspaces, mi89x7-droidspaces]
         ksu-type: [zako, zako-susfs, none]
         bbg-type: [bbg]
         nomount-type: [nomount]
@@ -64,7 +64,7 @@ jobs:
             cp build.sh android_kernel_xiaomi_sm6125/
             cp -r scripts android_kernel_xiaomi_sm6125/
             chmod +x ./android_kernel_xiaomi_sm6125/build.sh
-          elif [[ "${{ matrix.build-type }}" == "alioth-droidspaces" ]]; then
+          elif [[ "${{ matrix.build-type }}" == "umi-droidspaces" ]]; then
             if [ -d "$PWD/android_kernel_xiaomi_sm8250" ]; then
               rm -rf android_kernel_xiaomi_sm8250
             fi
@@ -120,7 +120,7 @@ jobs:
             cd android_kernel_xiaomi_sm6125/
             ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }} ${{ matrix.rekernel-type }}
             cd ..
-          elif [[ "${{ matrix.build-type }}" == "alioth-droidspaces" ]]; then
+          elif [[ "${{ matrix.build-type }}" == "umi-droidspaces" ]]; then
             cd android_kernel_xiaomi_sm8250/
             ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }} ${{ matrix.rekernel-type }}
             cd ..
@@ -159,15 +159,15 @@ jobs:
               sed -i 's/device.name2=sweetin/device.name2=willow/' AnyKernel3/anykernel.sh
               sed -i 's/sweet (sm6150)/ginkgo (sm6125)/g' AnyKernel3/banner
             fi
-          elif [[ "${{ matrix.build-type }}" == "alioth-droidspaces" ]]; then
+          elif [[ "${{ matrix.build-type }}" == "umi-droidspaces" ]]; then
             cp android_kernel_xiaomi_sm8250/out/arch/arm64/boot/Image AnyKernel3/
             cp android_kernel_xiaomi_sm8250/out/arch/arm64/boot/dtb.img AnyKernel3/
             cp android_kernel_xiaomi_sm8250/out/arch/arm64/boot/dtbo.img AnyKernel3/
             sed -i 's/supported.versions=11-16/supported.versions=11-16/' AnyKernel3/anykernel.sh
-            if [[ "${{ matrix.build-type }}" == "alioth-droidspaces" ]]; then
-              sed -i 's/device.name1=sweet/device.name1=sweet/' AnyKernel3/anykernel.sh
-              sed -i 's/device.name2=sweetin/device.name2=sweetin/' AnyKernel3/anykernel.sh
-              sed -i 's/sweet (sm6150)/sweet (sm8250)/g' AnyKernel3/banner
+            if [[ "${{ matrix.build-type }}" == "umi-droidspaces" ]]; then
+              sed -i 's/device.name1=sweet/device.name1=umi/' AnyKernel3/anykernel.sh
+              sed -i 's/device.name2=sweetin/device.name2=umiin/' AnyKernel3/anykernel.sh
+              sed -i 's/sweet (sm6150)/umi (sm8250)/g' AnyKernel3/banner
             fi
           elif [[ "${{ matrix.build-type }}" == "mi89x7-droidspaces" ]]; then
             cp android_kernel_xiaomi_msm8937/out/arch/arm64/boot/Image.gz-dtb AnyKernel3/
