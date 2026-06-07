@@ -52,10 +52,14 @@ case "$DEVICE_IMPORT" in
         fi
         export KBUILD_BUILD_USER=hiyorun-compile
         ;;
-    alioth|lmi|munch)
+    alioth|lmi|munch|alioth-droidspaces)
         export MAIN_DEFCONFIG="arch/arm64/configs/vendor/kona-perf_defconfig"
         export ACTUAL_MAIN_DEFCONFIG="vendor/kona-perf_defconfig"
         export DEVICE_DEFCONFIG="vendor/xiaomi/sm8250-common.config vendor/xiaomi/${DEVICE_IMPORT}.config"
+        if [ "$DEVICE_IMPORT" = "alioth-droidspaces" ]; then
+            export DEVICE_DEFCONFIG="vendor/alioth.config"
+            export KERNEL_NAME="-perf-droidspaces-neon"
+        fi
         export KERNEL_VERSION="4.19"
         export KBUILD_BUILD_USER=kebeletxd-compile
         ;;
