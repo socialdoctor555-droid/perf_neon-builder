@@ -119,6 +119,8 @@ jobs:
             sed -i 's/sweet (sm6150)/mi8937 and mi8917 (msm8937)/g' AnyKernel3/banner
           elif [[ "${{ matrix.build-type }}" == "sweet-playground" ]]; then
             cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/Image.gz AnyKernel3/
+            cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/dtb.img AnyKernel3/
+            cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/dtbo.img AnyKernel3/
             sed -i 's/supported.versions=11-16/supported.versions=12-16/' AnyKernel3/anykernel.sh
             if [[ "${{ matrix.build-type }}" == "sweet-playground" ]]; then
               sed -i 's/device.name1=sweet/device.name1=sweet/' AnyKernel3/anykernel.sh
