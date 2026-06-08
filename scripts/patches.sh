@@ -64,16 +64,15 @@ case "$DEVICE_IMPORT" in
                 "https://github.com/LineageOS/android_kernel_xiaomi_sm6150/commit/e207247aa4553fff7190dde5dabb50aec400b513.patch" \
                 "https://github.com/LineageOS/android_kernel_xiaomi_sm6150/commit/ae58bbd8f7af4c3c290e63ddcd4112559c5fc240.patch"
         fi
-        # LTO patches for 4.14
+        # LTO and kpatch patches for 4.14
         if [[ "$DEVICE_IMPORT" != "sweet-playground" ]]; then
             echo "-- Applying LTO patches..."
             apply_patches "$LTO_PATCH"
             echo "CONFIG_LTO_CLANG=y" >> $MAIN_DEFCONFIG
             echo "CONFIG_THINLTO=y" >> $MAIN_DEFCONFIG
+            echo "-- Applying KPATCH patches..."
+            apply_patches "$KPATCH_PATCH"
         fi
-        # Shared patches for 4.14
-        echo "-- Applying KPATCH patches..."
-        apply_patches "$KPATCH_PATCH"
         # Common configs for 4.14
         echo "-- Tuning default configs..."
         echo "CONFIG_EROFS_FS=y" >> $MAIN_DEFCONFIG
