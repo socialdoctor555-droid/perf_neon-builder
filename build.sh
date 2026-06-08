@@ -15,10 +15,10 @@ echo " "
 
 # Validate input arguments
 echo "- Validating input arguments..."
-if [ $# -ne 6 ]; then
+if [ $# -ne 5 ]; then
     echo ""
-    echo "-- Usage: $0 [device] [kernelsu_options] [bbg_options] [nomount_options] [droidspaces_options] [rekernel_options]"
-    echo "-- Example: $0 sweet zako bbg nomount droidspaces rekernel"
+    echo "-- Usage: $0 [device] [kernelsu_options] [bbg_options] [nomount_options] [droidspaces_options]"
+    echo "-- Example: $0 sweet zako bbg nomount droidspaces"
     echo ""
     exit 1
 fi
@@ -30,25 +30,22 @@ export KERNELSU_SELECTOR="$2"
 export BBG_SELECTOR="$3"
 export NOMOUNT_SELECTOR="$4"
 export DROIDSPACES_SELECTOR="$5"
-export REKERNEL_SELECTOR="$6"
 
 # Setup Environment
-chmod +x scripts/setup-environment.sh
-source scripts/setup-environment.sh
+chmod +x scripts/env.sh
+source scripts/env.sh
 
 # Setup patches
-chmod +x scripts/apply-device-patches.sh
-source scripts/apply-device-patches.sh
+chmod +x scripts/patches.sh
+source scripts/patches.sh
 
 # Setup goodies
-chmod +x scripts/add-goodies.sh
-source scripts/add-goodies.sh
+chmod +x scripts/goodies.sh
+source scripts/goodies.sh
 
 # Build process
-chmod +x scripts/before-compile.sh
-chmod +x scripts/compile-it.sh
-source scripts/before-compile.sh
-source scripts/compile-it.sh
+chmod +x scripts/compile.sh
+source scripts/compile.sh
 
 # Finalize
 if [ -d "out/arch/arm64/boot" ]; then
