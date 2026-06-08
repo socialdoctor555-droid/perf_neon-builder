@@ -43,9 +43,9 @@ KPATCH_PATCH="https://github.com/TheSillyOk/kernel_ls_patches/raw/refs/heads/mas
 
 # Patcher - 1.0
 case "$DEVICE_IMPORT" in
-    sweet|sweet-droidspaces|davinci|tucana|violet|ginkgo|ginkgo-droidspaces|laurel_sprout|sweet-playground)
+    sweet|sweet-playground|davinci|ginkgo|ginkgo|laurel_sprout)
         # Device specific for 4.14
-        if [[ "$DEVICE_IMPORT" == "sweet" ]] || [[ "$DEVICE_IMPORT" == "sweet-playground" ]] || [[ "$DEVICE_IMPORT" == "sweet-droidspaces" ]]; then
+        if [[ "$DEVICE_IMPORT" == "sweet" ]] || [[ "$DEVICE_IMPORT" == "sweet-playground" ]]; then
             echo "-- Applying LN8K patches..."
             LN8K_PATCHES=(
                 "https://github.com/crdroidandroid/android_kernel_xiaomi_sm6150/commit/7b73f853977d2c016e30319dffb1f49957d30b40.patch"
@@ -65,7 +65,7 @@ case "$DEVICE_IMPORT" in
             fi
             apply_patches "${LN8K_PATCHES[@]}"
             echo "CONFIG_CHARGER_LN8000=y" >> $MAIN_DEFCONFIG
-        elif [[ "$DEVICE_IMPORT" == "ginkgo" ]] || [[ "$DEVICE_IMPORT" == "laurel_sprout" ]] || [[ "$DEVICE_IMPORT" == "ginkgo-droidspaces" ]]; then
+        elif [[ "$DEVICE_IMPORT" == "ginkgo" ]] || [[ "$DEVICE_IMPORT" == "laurel_sprout" ]]; then
             echo "-- Applying DTC patches..."
             apply_patches \
                 "https://github.com/LineageOS/android_kernel_xiaomi_sm6150/commit/e207247aa4553fff7190dde5dabb50aec400b513.patch" \
@@ -90,10 +90,10 @@ case "$DEVICE_IMPORT" in
         echo "CONFIG_EROFS_FS=y" >> $MAIN_DEFCONFIG
         echo "CONFIG_SECURITY_SELINUX_DEVELOP=y" >> $MAIN_DEFCONFIG
         ;;
-    umi|umi-droidspaces|mi89x7-playground|mi89x7-droidspaces)
+    umi|mi89x7-playground)
         # Device specific for 4.19
-        if [[ "$DEVICE_IMPORT" == "mi89x7-playground" ]] || [[ "$DEVICE_IMPORT" == "mi89x7-droidspaces" ]]; then
-            # Revert KSU commit for mi89x7-playground
+        if [[ "$DEVICE_IMPORT" == "mi89x7-playground" ]]; then
+            # Revert KSU commit
             echo "-- Reverting KSU commit..."
             revert_commit "https://github.com/Mi-Thorium/kernel_msm-4.19/commit/624875e8edc36ae280b1f8efc1d3c48a28da64ea.patch"
         fi
@@ -108,9 +108,6 @@ case "$DEVICE_IMPORT" in
         echo "-- Reverting KSU commit for a9y18qlte..."
         revert_commit "https://github.com/riarumoda/kernel_samsung_a9y18qlte/commit/6e44d53debc1395d80589eed7657b77f52522c27.patch"
         revert_commit "https://github.com/riarumoda/kernel_samsung_a9y18qlte/commit/ab4abe439587577c1f4cf594fb5179bdb6bd59a6.patch"
-        ;;
-    a52s)
-        echo "-- STUB Entry for a52s. Nothing added yet."
         ;;
     *)
         echo "No specific patches to apply for $DEVICE_IMPORT."
