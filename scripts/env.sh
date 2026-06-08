@@ -86,7 +86,7 @@ TC_URLS=(
 )
 
 # Clang and GCC Setup
-for tc in "${TC_URLS_REAL[@]}"; do
+for tc in "${TC_URLS[@]}"; do
     dir="${tc%%|*}"; url="${tc##*|}"
     if [[ "$url" == *.git ]]; then
         if [ ! -d "$dir/.git" ]; then
