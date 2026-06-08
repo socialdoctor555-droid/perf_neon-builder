@@ -21,7 +21,6 @@ jobs:
         bbg-type: [bbg]
         nomount-type: [nomount]
         droidspaces-type: [none]
-        rekernel-type: [rekernel]
 
     steps:
       - uses: actions/checkout@v6
@@ -94,11 +93,11 @@ jobs:
           echo "Starting to compile..."
           if [[ "${{ matrix.build-type }}" == "mi89x7-playground" ]]; then
             cd android_kernel_xiaomi_msm8937/
-            ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }} ${{ matrix.rekernel-type }}
+            ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }}
             cd ..
           elif [[ "${{ matrix.build-type }}" == "sweet-playground" ]]; then
             cd android_kernel_xiaomi_sm6150/
-            ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }} ${{ matrix.rekernel-type }}
+            ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }}
             cd ..
           else
             echo "Invalid build type: ${{ matrix.build-type }}"
@@ -120,8 +119,6 @@ jobs:
             sed -i 's/sweet (sm6150)/mi8937 and mi8917 (msm8937)/g' AnyKernel3/banner
           elif [[ "${{ matrix.build-type }}" == "sweet-playground" ]]; then
             cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/Image.gz AnyKernel3/
-            cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/dtb.img AnyKernel3/
-            cp android_kernel_xiaomi_sm6150/out/arch/arm64/boot/dtbo.img AnyKernel3/
             sed -i 's/supported.versions=11-16/supported.versions=12-16/' AnyKernel3/anykernel.sh
             if [[ "${{ matrix.build-type }}" == "sweet-playground" ]]; then
               sed -i 's/device.name1=sweet/device.name1=sweet/' AnyKernel3/anykernel.sh
@@ -198,7 +195,7 @@ jobs:
             > - Kernels already includes everything you already expect from the main release.   
 
             > [!CAUTION]   
-            > - Always backup your boot & dtbo image first before proceeding!   
+            > - Always backup your boot image first before proceeding!   
           files: |
             artifacts/**/*.zip
           overwrite_files: true
