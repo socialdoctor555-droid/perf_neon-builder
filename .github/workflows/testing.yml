@@ -14,7 +14,7 @@ jobs:
       date: ${{ steps.ts.outputs.DATE }}
     strategy:
       matrix:
-        build-type: [sweet]
+        build-type: [tucana, violet, cmi]
         ksu-type: [zako-susfs]
         bbg-type: [bbg]
         nomount-type: [nomount]
@@ -61,7 +61,7 @@ jobs:
             cp build.sh android_kernel_xiaomi_sm6125/
             cp -r scripts android_kernel_xiaomi_sm6125/
             chmod +x ./android_kernel_xiaomi_sm6125/build.sh
-          elif [[ "${{ matrix.build-type }}" == "umi" || "${{ matrix.build-type }}" == "lmi" || "${{ matrix.build-type }}" == "munch" ]]; then
+          elif [[ "${{ matrix.build-type }}" == "umi" || "${{ matrix.build-type }}" == "cmi" || "${{ matrix.build-type }}" == "munch" ]]; then
             if [ -d "$PWD/android_kernel_xiaomi_sm8250" ]; then
               rm -rf android_kernel_xiaomi_sm8250
             fi
@@ -158,7 +158,7 @@ jobs:
             cd android_kernel_xiaomi_sm6125/
             ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }}
             cd ..
-          elif [[ "${{ matrix.build-type }}" == "umi" || "${{ matrix.build-type }}" == "lmi" || "${{ matrix.build-type }}" == "munch" ]]; then
+          elif [[ "${{ matrix.build-type }}" == "umi" || "${{ matrix.build-type }}" == "cmi" || "${{ matrix.build-type }}" == "munch" ]]; then
             cd android_kernel_xiaomi_sm8250/
             ./build.sh ${{ matrix.build-type }} ${{ matrix.ksu-type }} ${{ matrix.bbg-type }} ${{ matrix.nomount-type }} ${{ matrix.droidspaces-type }}
             cd ..
@@ -221,17 +221,17 @@ jobs:
               sed -i 's/device.name2=sweetin/device.name2=laurel_sproutin/' AnyKernel3/anykernel.sh
               sed -i 's/sweet (sm6150)/laurel_sprout (sm6125)/g' AnyKernel3/banner
             fi
-          elif [[ "${{ matrix.build-type }}" == "umi" || "${{ matrix.build-type }}" == "lmi" || "${{ matrix.build-type }}" == "munch" ]]; then
+          elif [[ "${{ matrix.build-type }}" == "umi" || "${{ matrix.build-type }}" == "cmi" || "${{ matrix.build-type }}" == "munch" ]]; then
             cp android_kernel_xiaomi_sm8250/out/arch/arm64/boot/Image AnyKernel3/
             sed -i 's/supported.versions=11-16/supported.versions=11-16/' AnyKernel3/anykernel.sh
             if [[ "${{ matrix.build-type }}" == "umi" ]]; then
               sed -i 's/device.name1=sweet/device.name1=umi/' AnyKernel3/anykernel.sh
               sed -i 's/device.name2=sweetin/device.name2=umiin/' AnyKernel3/anykernel.sh
               sed -i 's/sweet (sm6150)/umi (sm8250)/g' AnyKernel3/banner
-            elif [[ "${{ matrix.build-type }}" == "lmi" ]]; then
-              sed -i 's/device.name1=sweet/device.name1=lmi/' AnyKernel3/anykernel.sh
-              sed -i 's/device.name2=sweetin/device.name2=lmiin/' AnyKernel3/anykernel.sh
-              sed -i 's/sweet (sm6150)/lmi (sm8250)/g' AnyKernel3/banner
+            elif [[ "${{ matrix.build-type }}" == "cmi" ]]; then
+              sed -i 's/device.name1=sweet/device.name1=cmi/' AnyKernel3/anykernel.sh
+              sed -i 's/device.name2=sweetin/device.name2=cmiin/' AnyKernel3/anykernel.sh
+              sed -i 's/sweet (sm6150)/cmi (sm8250)/g' AnyKernel3/banner
             elif [[ "${{ matrix.build-type }}" == "munch" ]]; then
               sed -i 's/device.name1=sweet/device.name1=munch/' AnyKernel3/anykernel.sh
               sed -i 's/device.name2=sweetin/device.name2=munchin/' AnyKernel3/anykernel.sh
