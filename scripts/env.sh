@@ -15,7 +15,7 @@ export FEATURE_DEFCONFIG=""
 # Device Settings - v3.7
 case "$DEVICE_IMPORT" in
     # LineageOS
-    sweet|davinci)
+    sweet|davinci|tucana|violet)
         export DEVICE_DEFCONFIG="vendor/${DEVICE_IMPORT}.config"
         ;;
     ginkgo|laurel_sprout)
@@ -25,7 +25,7 @@ case "$DEVICE_IMPORT" in
         export DEVICE_DEFCONFIG="vendor/${DEVICE_IMPORT}.config"
         export KBUILD_BUILD_USER=hiyorun-compile
         ;;
-    umi)
+    umi|cmi)
         export MAIN_DEFCONFIG="arch/arm64/configs/vendor/kona-perf_defconfig"
         export ACTUAL_MAIN_DEFCONFIG="vendor/kona-perf_defconfig"
         export DEVICE_DEFCONFIG="vendor/xiaomi/sm8250-common.config vendor/xiaomi/${DEVICE_IMPORT}.config"

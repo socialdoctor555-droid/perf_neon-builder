@@ -35,7 +35,7 @@ KPATCH_PATCH="https://github.com/TheSillyOk/kernel_ls_patches/raw/refs/heads/mas
 
 # Patcher - 1.0
 case "$DEVICE_IMPORT" in
-    sweet|sweet-playground|davinci|ginkgo|laurel_sprout)
+    sweet|sweet-playground|davinci|tucana|violet|ginkgo|laurel_sprout)
         # Device specific for 4.14
         if [[ "$DEVICE_IMPORT" == "sweet" ]] || [[ "$DEVICE_IMPORT" == "sweet-playground" ]]; then
             echo "-- Applying LN8K patches..."
@@ -79,7 +79,7 @@ case "$DEVICE_IMPORT" in
         echo "CONFIG_SECURITY_SELINUX_DEVELOP=y" >> $MAIN_DEFCONFIG
         echo "CONFIG_KALLSYMS_ALL=y" >> $MAIN_DEFCONFIG
         ;;
-    umi|mi89x7-playground)
+    umi|cmi|mi89x7-playground)
         # Device specific for 4.19
         if [[ "$DEVICE_IMPORT" == "mi89x7-playground" ]]; then
             # Revert KSU commit
