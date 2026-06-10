@@ -43,6 +43,7 @@ Currently supported device
 - Redmi Note 8/8T ([ginkgo/willow](https://download.lineageos.org/devices/ginkgo/builds))   
 - Xiaomi Mi A3 ([laurel_sprout](https://download.lineageos.org/devices/laurel_sprout/builds))   
 - Xiaomi Mi 10 ([umi](https://download.lineageos.org/devices/umi/builds))   
+- Xiaomi Mi 10 Pro ([cmi](https://download.lineageos.org/devices/cmi/builds))   
 
 Externally supported device   
 - Redmi Note 10 Pro/Pro Max ([sweet](https://pixelos.net/download/sweet)) from PixelOS   
