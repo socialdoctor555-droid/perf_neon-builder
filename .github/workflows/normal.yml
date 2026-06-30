@@ -16,7 +16,7 @@ jobs:
       date: ${{ steps.ts.outputs.DATE }}
     strategy:
       matrix:
-        build-type: [sweet, davinci, tucana, violet, ginkgo, laurel_sprout, umi, cmi]
+        build-type: [umi]
         ksu-type: [zako-susfs, none]
         bbg-type: [bbg]
         nomount-type: [nomount]
