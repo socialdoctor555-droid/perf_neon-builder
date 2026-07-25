@@ -3,19 +3,15 @@
 # Default exports
 export SUSFS_PATCH="https://github.com/JackA1ltman/NonGKI_Kernel_Build_2nd/raw/refs/heads/mainline/Patches/Patch/susfs_patch_to_${KERNEL_VERSION}.patch"
 
-case "$KERNELSU_SELECTOR" in
-    zako|zako-susfs)
         # Start of KernelSU integration
-        echo "-- Setting up KernelSU integration: $KERNELSU_SELECTOR"
+        echo "-- Setting up KernelSU integration: sufs "
         KSU_SETUP_URI="https://github.com/ReSukiSU/ReSukiSU/raw/refs/heads/main/kernel/setup.sh"
         KSU_SETUP_BRANCH="main"
 
         # Check if susfs are used or not, and set the appropriate hook script URL
-        if [[ "$KERNELSU_SELECTOR" == "zako-susfs" ]]; then
+    
             KSU_HOOK="https://github.com/JackA1ltman/NonGKI_Kernel_Build_2nd/raw/refs/heads/mainline/Patches/susfs_inline_hook_patches.sh"
-        else
-            KSU_HOOK="https://github.com/JackA1ltman/NonGKI_Kernel_Build_2nd/raw/refs/heads/mainline/Patches/syscall_hook_patches.sh"
-        fi
+        
 
         # Setup KernelSU
         echo "-- Running KernelSU setup script..."
@@ -35,7 +31,6 @@ case "$KERNELSU_SELECTOR" in
         curl -LSs --fail --retry 3 "$KSU_HOOK" | bash &> /dev/null || { echo "Fatal: KSU hook script failed to download/run!"; exit 1; }
 
         # SUSFS Logic
-        if [[ "$KERNELSU_SELECTOR" == "zako-susfs" ]]; then
             echo "-- Setting up SUSFS support for KernelSU..."
             wget -qO- "$SUSFS_PATCH" | patch -s -p1 --fuzz=5
             echo "CONFIG_KSU_SUSFS=y" >> $MAIN_DEFCONFIG
@@ -49,13 +44,7 @@ case "$KERNELSU_SELECTOR" in
             echo "CONFIG_KSU_SUSFS_OPEN_REDIRECT=y" >> $MAIN_DEFCONFIG
             echo "CONFIG_KSU_SUSFS_SUS_MAP=y" >> $MAIN_DEFCONFIG
             echo "CONFIG_KSU_SUSFS_TRY_UMOUNT=y" >> $MAIN_DEFCONFIG
-        fi
 
-        # Kernel 4.4 specific fixes
-        if [[ "$KERNEL_VERSION" == "4.4" ]]; then
-            echo "-- Re-tuning ksu_handle_devpts under 4.4..."
-            sed -i '/static struct tty_struct \*pts_unix98_lookup/,/}/ s/ksu_handle_devpts((struct inode \*)file->f_path.dentry->d_inode);/ksu_handle_devpts(pts_inode);/' drivers/tty/pty.c
-        fi
 
         # Export SELinux Symbols
         echo "-- Checking and exporting static SELinux symbols..."
